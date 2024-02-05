@@ -4,7 +4,7 @@ import numpy as np
 from transformers import ViTImageProcessor, TrainingArguments, Trainer, ViTForImageClassification
 from datasets import load_dataset, load_metric
 
-# we're gonna try to train a base ViT model on food101
+# we're gonna try to train a base ViT model on cifar10
 
 model_checkpoint = 'google/vit-base-patch16-224'
 model = None
