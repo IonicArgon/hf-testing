@@ -10,56 +10,71 @@ import os
 cwd = os.getcwd()
 
 # list of files in respective folders
-test_humans = os.listdir(cwd + '/training_data/test/humans')
-train_humans = os.listdir(cwd + '/training_data/train/humans')
-test_monkeys = os.listdir(cwd + '/training_data/test/monkeys')
-train_monkeys = os.listdir(cwd + '/training_data/train/monkeys')
-
+test_cat = os.listdir(cwd + '/training_data/test/cat')
+train_cat = os.listdir(cwd + '/training_data/train/cat')
+test_dog = os.listdir(cwd + '/training_data/test/dog')
+train_dog = os.listdir(cwd + '/training_data/train/dog')
 
 if __name__ == "__main__":
-    # rename files
-    print("Renaming test data for humans")
-    for i in range(len(test_humans)):
-        current_file = cwd + '/training_data/test/humans/' + test_humans[i]
-        new_file = cwd + '/training_data/test/humans/h_te_' + f"{i+1:03}" + '.jpg'
-        if not os.path.exists(new_file):
-            print(f"Renaming {current_file} to {new_file}")
-            os.rename(current_file, new_file)
-        else:
-            print(f"File {new_file} already exists")
-    print("\n")
+    print("Renaming test data for: cat")
+    for i in range(len(test_cat)):
+        current_file = test_cat[i]
+        new_file = "cat_test_" + f"{i:03}" + ".jpg"
 
-    print("Renaming training data for humans")
-    for i in range(len(train_humans)):
-        current_file = cwd + '/training_data/train/humans/' + train_humans[i]
-        new_file = cwd + '/training_data/train/humans/h_tr_' + f"{i+1:03}" + '.jpg'
-        if not os.path.exists(new_file):
-            print(f"Renaming {current_file} to {new_file}")
-            os.rename(current_file, new_file)
-        else:
-            print(f"File {new_file} already exists")
-    print("\n")
+        current_file_dir = cwd + '/training_data/test/cat/' + current_file
+        new_file_dir = cwd + '/training_data/test/cat/' + new_file
 
-    print("Renaming test data for monkeys")
-    for i in range(len(test_monkeys)):
-        current_file = cwd + '/training_data/test/monkeys/' + test_monkeys[i]
-        new_file = cwd + '/training_data/test/monkeys/m_te_' + f"{i+1:03}" + '.jpg'
-        if not os.path.exists(new_file):
-            print(f"Renaming {current_file} to {new_file}")
-            os.rename(current_file, new_file)
+        if current_file != new_file:
+            os.rename(current_file_dir, new_file_dir)
+            print(f"Renamed {current_file} to {new_file}")
         else:
-            print(f"File {new_file} already exists")
-    print("\n")
+            print(f"Skipping file {current_file}: already renamed")
+            continue
 
-    print("Renaming training data for monkeys")
-    for i in range(len(train_monkeys)):
-        current_file = cwd + '/training_data/train/monkeys/' + train_monkeys[i]
-        new_file = cwd + '/training_data/train/monkeys/m_tr_' + f"{i+1:03}" + '.jpg'
-        if not os.path.exists(new_file):
-            print(f"Renaming {current_file} to {new_file}")
-            os.rename(current_file, new_file)
+    print("Renaming test data for: dog")
+    for i in range(len(test_dog)):
+        current_file = test_dog[i]
+        new_file = "dog_test_" + f"{i:03}" + ".jpg"
+
+        current_file_dir = cwd + '/training_data/test/dog/' + current_file
+        new_file_dir = cwd + '/training_data/test/dog/' + new_file
+
+        if current_file != new_file:
+            os.rename(current_file_dir, new_file_dir)
+            print(f"Renamed {current_file} to {new_file}")
         else:
-            print(f"File {new_file} already exists")
-    print("\n")
+            print(f"Skipping file {current_file}: already renamed")
+            continue
 
-    print("Renaming complete")
+    print("Renaming train data for: cat")
+    for i in range(len(train_cat)):
+        current_file = train_cat[i]
+        new_file = "cat_train_" + f"{i:03}" + ".jpg"
+
+        current_file_dir = cwd + '/training_data/train/cat/' + current_file
+        new_file_dir = cwd + '/training_data/train/cat/' + new_file
+
+        if current_file != new_file:
+            os.rename(current_file_dir, new_file_dir)
+            print(f"Renamed {current_file} to {new_file}")
+        else:
+            print(f"Skipping file {current_file}: already renamed")
+            continue
+
+    print("Renaming train data for: dog")
+    for i in range(len(train_dog)):
+        current_file = train_dog[i]
+        new_file = "dog_train_" + f"{i:03}" + ".jpg"
+
+        current_file_dir = cwd + '/training_data/train/dog/' + current_file
+        new_file_dir = cwd + '/training_data/train/dog/' + new_file
+
+        if current_file != new_file:
+            os.rename(current_file_dir, new_file_dir)
+            print(f"Renamed {current_file} to {new_file}")
+        else:
+            print(f"Skipping file {current_file}: already renamed")
+            continue
+
+    print("Renaming complete!")
+
