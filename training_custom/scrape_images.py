@@ -8,6 +8,7 @@ import requests
 
 cwd = os.getcwd()
 output_folder = cwd + '/downloads'
+subfolder = None
 
 def scrape_images(keyword: str, page_limit: int=1):
     with sync_playwright() as p:
@@ -37,12 +38,12 @@ def scrape_images(keyword: str, page_limit: int=1):
                 if "data:image/jpeg;base64" in src:
                     b64_data = src.split(',')[1]
                     img = Image.open(BytesIO(base64.b64decode(b64_data)))
-                    img.save(f'{output_folder}/{keyword.replace(" ", "_")}_{ticker:04}.jpg')
+                    img.save(f'{subfolder}/{keyword.replace(" ", "_")}_{ticker:04}.jpg')
                     ticker += 1
                     seen_srcs.add(src)
                 elif "http" in src:
-                    # skip any src that contains "favicon"
-                    if "favicon" in src:
+                    # skip any src that contains "favicon", "logo"
+                    if "favicon" in src or "logo" in src:
                         continue
 
                     img = requests.get(src)
@@ -54,7 +55,7 @@ def scrape_images(keyword: str, page_limit: int=1):
 
                     if img.mode != 'RGB':
                         img = img.convert('RGB')
-                    img.save(f'{output_folder}/{keyword.replace(" ", "_")}_{ticker:04}.jpg')
+                    img.save(f'{subfolder}/{keyword.replace(" ", "_")}_{ticker:04}.jpg')
                     ticker += 1
                     seen_srcs.add(src)
                 else:
@@ -77,6 +78,12 @@ if __name__ == "__main__":
     
     keyword = input("Enter keyword: ")
     page_limit = int(input("Enter page limit: "))
+
+    subfolder = output_folder + '/' + keyword.replace(" ", "_")
+    if not os.path.exists(subfolder):
+        os.mkdir(subfolder)
+
     scrape_images(keyword, page_limit)
     print("Done scraping images!")
+    print(f"Images are saved in {subfolder}")
     print("Check the images as this scraper will download unrelated images as well.")
