@@ -13,6 +13,7 @@ import random
 import time
 import numpy as np
 import matplotlib.pyplot as plt
+from torch.nn import Softmax
 
 seed = int(round(time.time()))
 random.seed(seed)
@@ -26,12 +27,17 @@ for i, idx in enumerate(selected):
     inputs = processor(images=np.array(img), return_tensors="pt")
     outputs = model(**inputs)
     predicted = np.argmax(outputs.logits.detach().numpy())
+    logits = outputs.logits
+
+    sm = Softmax(dim=1)
+    confidence = sm(logits)
+    confidence = confidence[0][predicted]
 
     label = "cat" if label == 0 else "dog"
     predicted = "cat" if predicted == 0 else "dog"
 
     ax[i//5, i%5].imshow(img)
-    ax[i//5, i%5].set_title(f"Predicted: {predicted}\nActual: {label}")
+    ax[i//5, i%5].set_title(f"Predicted: {predicted}\nActual: {label}\nConfidence: {confidence:.2f}")
     ax[i//5, i%5].axis("off")
 
 plt.tight_layout()

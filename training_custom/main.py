@@ -108,6 +108,10 @@ trainer = Trainer(
     tokenizer=processor,
 )
 
+print("Training with arguments:")
+print(training_args)
+print("Size of training set:", len(ds_train))
+
 train_results = trainer.train()
 trainer.save_model()
 trainer.log_metrics("train", train_results.metrics)
