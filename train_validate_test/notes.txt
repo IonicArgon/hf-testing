@@ -1,0 +1,9 @@
+bears:
+    - Grizzly bears
+    - Polar bears
+    - Sun bear
+
+action:
+    - Sit
+    - Stand
+    - Eat
