@@ -1,9 +1,26 @@
 bears:
     - Grizzly bears
     - Polar bears
-    - Sun bear
+    - Giant panda
 
 action:
     - Sit
     - Stand
     - Eat
+
+file tree
+    dataset
+        -> grizzly_bear
+            -> sitting
+            -> standing
+            -> eating
+        -> polar_bear
+            -> sitting
+            -> standing
+             -> eating
+        -> giant_panda
+            -> sitting
+            -> standing
+            -> eating
+
+will programmatically create the splits
