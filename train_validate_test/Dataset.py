@@ -13,4 +13,7 @@ class Dataset():
         })
 
     def get_dataset(self):
+        print("Train split length: ", len(self.hf_dataset["train"]))
+        print("Test split length: ", len(self.hf_dataset["test"]))
+        print("Valid split length: ", len(self.hf_dataset["valid"]))
         return self.hf_dataset
