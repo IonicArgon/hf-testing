@@ -31,6 +31,7 @@ def get_predicted_labels(logits, threshold=0.275):
 if __name__ == "__main__":
     dataset = Dataset()
     hf_dataset = dataset.get_dataset()
+    threshold = 0.225
 
     bear_types = ["giant_panda", "grizzly_bear", "polar_bear"]
     activity_types = ["eating", "sitting", "standing"]
@@ -61,7 +62,7 @@ if __name__ == "__main__":
         outputs = model(**inputs)
         logits = outputs.logits
 
-        predicted_labels, probabilities = get_predicted_labels(logits)
+        predicted_labels, probabilities = get_predicted_labels(logits, threshold)
         predicted_labels = " ".join(predicted_labels[0])
 
         ax[i, 0].imshow(img)
@@ -73,7 +74,7 @@ if __name__ == "__main__":
             probabilities[0].detach().numpy(),
             tick_label=["giant_panda", "grizzly_bear", "polar_bear", "eating", "sitting", "standing"],
         )
-        ax[i, 1].axvline(0.275, color="red", linestyle="--")
+        ax[i, 1].axvline(threshold, color="red", linestyle="--")
         ax[i, 1].bar_label(ax[i, 1].containers[0], fmt="%.3f")
         ax[i, 1].set_xlim(0, 1)
         ax[i, 1].set_title("Probabilities")
