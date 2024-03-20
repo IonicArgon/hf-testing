@@ -39,7 +39,8 @@ class ModelTrainer:
             num_labels=self.model_params["num_labels"],
             ignore_mismatched_sizes=True
         )
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        #self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.device = torch.device("cpu") # because the large vit model is too big for my gpu
 
     def _apply_transforms(self, batch):
         transforms = A.Compose([
@@ -104,6 +105,9 @@ class ModelTrainer:
     def train(self, training_args):
         self.model.to(self.device)
 
+        # print out device in use
+        print(f"Device in use: {self.device}")
+
         model_name = self.model_checkpoint.replace("/", "-")
 
         training_args = TrainingArguments(
@@ -116,6 +120,7 @@ class ModelTrainer:
             logging_dir=f"./{model_name}-logs",
             logging_steps=training_args["logging_steps"],
             evaluation_strategy=training_args["evaluation_strategy"],
+            use_cpu=training_args.get("use_cpu", False)
         )
 
         trainer = TrainerForMultiLabelClassification(

@@ -14,13 +14,11 @@ if __name__ == "__main__":
         "warmup_steps": 500,
         "weight_decay": 0.01,
         "logging_steps": 10,
-        "evaluation_strategy": "epoch"
+        "evaluation_strategy": "epoch",
+        "use_cpu": False
     }
 
     list_of_models = [
-        "google/vit-base-patch16-224-in21k",
-        "WinKawaks/vit-tiny-patch16-224",
-        "WinKawaks/vit-small-patch16-224",
         "google/vit-large-patch16-384"
     ]
 
